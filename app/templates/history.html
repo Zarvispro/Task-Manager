@@ -1,0 +1,55 @@
+{% extends 'base.html' %}
+{% block title %}Task History{% endblock %}
+{% block content %}
+    <div class="task-container">
+        <h2>Completed Tasks</h2>
+        <table class="table mt-3">
+            <thead>
+                <tr>
+                    <th>Title</th>
+                    <th>Description</th>
+                    <th>Due Date</th>
+                    <th>Completed On</th>
+                    <th>Priority</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for task in completed_tasks %}
+                    <tr class="{% if task.priority == 1 %}high-priority{% elif task.priority == 2 %}medium-priority{% elif task.priority == 3 %}low-priority{% endif %}">
+                        <td>{{ task.title }}</td>
+                        <td>{{ task.description }}</td>
+                        <td>{{ task.due_date.strftime('%Y-%m-%d') }}</td>
+                        <td>{{ task.completed_at.strftime('%Y-%m-%d') }}</td>
+                        <td>{% if task.priority == 1 %}High{% elif task.priority == 2 %}Medium{% elif task.priority == 3 %}Low{% endif %}</td>
+                    </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>
+
+    <div class="task-container">
+        <h2>Skipped Tasks</h2>
+        <table class="table mt-3">
+            <thead>
+                <tr>
+                    <th>Title</th>
+                    <th>Description</th>
+                    <th>Due Date</th>
+                    <th>Skipped On</th>
+                    <th>Priority</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for task in skipped_tasks %}
+                    <tr class="{% if task.priority == 1 %}high-priority{% elif task.priority == 2 %}medium-priority{% elif task.priority == 3 %}low-priority{% endif %}">
+                        <td>{{ task.title }}</td>
+                        <td>{{ task.description }}</td>
+                        <td>{{ task.due_date.strftime('%Y-%m-%d') }}</td>
+                        <td>{{ task.skipped_at.strftime('%Y-%m-%d') }}</td>
+                        <td>{% if task.priority == 1 %}High{% elif task.priority == 2 %}Medium{% elif task.priority == 3 %}Low{% endif %}</td>
+                    </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>
+{% endblock %}

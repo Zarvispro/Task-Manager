@@ -1,0 +1,136 @@
+{% extends 'base.html' %}
+{% block title %}Dashboard{% endblock %}
+{% block content %}
+    <div class="chart-container">
+        <canvas id="taskPriorityChart"></canvas>
+    </div>
+    <div class="task-container">
+
+        <h2>Today's Tasks</h2>
+        <table class="table mt-3">
+            <thead>
+                <tr>
+                    <th>Title</th>
+                    <th>Description</th>
+                    <th>Due Date</th>
+                    <th>Priority</th>
+                    <th>Actions</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for task in today_tasks %}
+                    <tr class="{% if task.priority == 1 %}high-priority{% elif task.priority == 2 %}medium-priority{% elif task.priority == 3 %}low-priority{% endif %}">
+                        <td>{{ task.title }}</td>
+                        <td>{{ task.description }}</td>
+                        <td>{{ task.due_date.strftime('%Y-%m-%d') }}</td>
+                        <td>{% if task.priority == 1 %}High{% elif task.priority == 2 %}Medium{% elif task.priority == 3 %}Low{% endif %}</td>
+                        <td>
+                            <a href="{{ url_for('edit_task', task_id=task.id) }}" style="margin-right: 10px">
+                                <svg width="28px" height="28px" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" fill="#000000"><g id="SVGRepo_bgCarrier" stroke-width="0"></g><g id="SVGRepo_tracerCarrier" stroke-linecap="round" stroke-linejoin="round"></g><g id="SVGRepo_iconCarrier"> <title></title> <g id="Complete"> <g id="edit"> <g> <path d="M20,16v4a2,2,0,0,1-2,2H4a2,2,0,0,1-2-2V6A2,2,0,0,1,4,4H8" fill="none" stroke="#007bff" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"></path> <polygon fill="none" points="12.5 15.8 22 6.2 17.8 2 8.3 11.5 8 16 12.5 15.8" stroke="#007bff" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"></polygon> </g> </g> </g> </g></svg>
+                            </a>
+                            <form action="{{ url_for('complete_task', task_id=task.id) }}" method="post" style="display: inline; margin-right: 10px;">
+                                <button class="tooltip" style="background-color: transparent; border: none; cursor: pointer;" type="submit">
+                                    <svg xmlns="http://www.w3.org/2000/svg" width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="#007bff" stroke-width="2" stroke-linecap="square" stroke-linejoin="arcs"><polyline points="20 6 9 17 4 12"></polyline></svg>
+                                    <span class="tooltiptext">Complete</span>
+                                </button>
+                            </form>
+                            <form action="{{ url_for('skip_task', task_id=task.id) }}" method="post" style="display: inline;">
+                                <button class="tooltip" style="background-color: transparent; border: none; cursor: pointer;" type="submit">
+                                    <svg xmlns="http://www.w3.org/2000/svg" width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="#007bff" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polygon points="5 4 15 12 5 20 5 4"></polygon><line x1="19" y1="5" x2="19" y2="19"></line></svg>
+                                    <span class="tooltiptext">Skip</span>
+                                </button>
+                            </form>
+                        </td>
+                    </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>
+
+    <div class="task-container">
+        <h2>All Tasks</h2>
+        <a href="{{ url_for('add_task') }}" class="btn btn-primary">Add Task</a>
+        <table class="table mt-3">
+            <thead>
+                <tr>
+                    <th>Title</th>
+                    <th>Description</th>
+                    <th>Due Date</th>
+                    <th>Priority</th>
+                    <th>Actions</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for task in tasks %}
+                    <tr class="{% if task.priority == 1 %}high-priority{% elif task.priority == 2 %}medium-priority{% elif task.priority == 3 %}low-priority{% endif %}">
+                        <td>{{ task.title }}</td>
+                        <td>{{ task.description }}</td>
+                        <td>{{ task.due_date.strftime('%Y-%m-%d') }}</td>
+                        <td>{% if task.priority == 1 %}High{% elif task.priority == 2 %}Medium{% elif task.priority == 3 %}Low{% endif %}</td>
+                        <td>
+                            <a href="{{ url_for('edit_task', task_id=task.id) }}" style="margin-right: 10px">
+                                <svg width="28px" height="28px" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" fill="#000000"><g id="SVGRepo_bgCarrier" stroke-width="0"></g><g id="SVGRepo_tracerCarrier" stroke-linecap="round" stroke-linejoin="round"></g><g id="SVGRepo_iconCarrier"> <title></title> <g id="Complete"> <g id="edit"> <g> <path d="M20,16v4a2,2,0,0,1-2,2H4a2,2,0,0,1-2-2V6A2,2,0,0,1,4,4H8" fill="none" stroke="#007bff" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"></path> <polygon fill="none" points="12.5 15.8 22 6.2 17.8 2 8.3 11.5 8 16 12.5 15.8" stroke="#007bff" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"></polygon> </g> </g> </g> </g></svg>
+                            </a>
+                            <form action="{{ url_for('delete_task', task_id=task.id) }}" method="post" style="display: inline; margin-left: 10px">
+                                <button style="background-color: transparent; border: none; cursor: pointer" type="submit">
+                                    <svg fill="#007bff" width="28px" height="28px" viewBox="-3.5 0 19 19" xmlns="http://www.w3.org/2000/svg" class="cf-icon-svg"><g id="SVGRepo_bgCarrier" stroke-width="0"></g><g id="SVGRepo_tracerCarrier" stroke-linecap="round" stroke-linejoin="round"></g><g id="SVGRepo_iconCarrier"><path d="M11.383 13.644A1.03 1.03 0 0 1 9.928 15.1L6 11.172 2.072 15.1a1.03 1.03 0 1 1-1.455-1.456l3.928-3.928L.617 5.79a1.03 1.03 0 1 1 1.455-1.456L6 8.261l3.928-3.928a1.03 1.03 0 0 1 1.455 1.456L7.455 9.716z"></path></g></svg>
+                                </button>
+                            </form>
+                        </td>
+                    </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>
+
+
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function () {
+            var ctx = document.getElementById('taskPriorityChart').getContext('2d');
+            var myChart = new Chart(ctx, {
+                type: 'pie',
+                data: {
+                    labels: ['High Priority', 'Medium Priority', 'Low Priority'],
+                    datasets: [{
+                        label: 'Task Priority',
+                        data: [
+                            {{ high_priority_count }},
+                            {{ medium_priority_count }},
+                            {{ low_priority_count }}
+                        ],
+                        backgroundColor: [
+                            '#e74c3c',
+                            '#f1c40f',
+                            '#2ecc71'
+                        ],
+                        borderColor: [
+                            '#e74c3c',
+                            '#f1c40f',
+                            '#2ecc71'
+                        ],
+                        borderWidth: 1
+                    }]
+                },
+                options: {
+                    responsive: true,
+                    maintainAspectRatio: false,
+                    legend: {
+                        position: 'top',
+                    },
+                    title: {
+                        display: true,
+                        text: 'Task Priority Distribution'
+                    },
+                    animation: {
+                        animateScale: true,
+                        animateRotate: true
+                    }
+                }
+            });
+        });
+    </script>
+
+{% endblock %}
+
+
