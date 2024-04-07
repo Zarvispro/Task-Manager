@@ -4,7 +4,7 @@
     justify-content: space-between;
     align-items: center;
     padding: 10px 20px;
-    background-color: #333;
+    background-color: #00383B;
     color: white;
 }
 
@@ -15,25 +15,49 @@
     color: inherit;
 }
 
-nav ul {
-    list-style: none;
-    margin: 0;
+@media (max-width: 768px) {
+    .logo {
+        display: none;
+    }
+    nav{
+        width: 100%
+    }
+    .table th, .table td {
+    text-align: center;
+    }
+}
+
+.nav-links{
+    float: left;
+    display: inline-block;
+    margin: 3px;
     padding: 0;
 }
 
-nav ul li {
-    display: inline-block;
-    margin-right: 10px;
-}
-
-nav ul li a {
+.nav-links a {
     text-decoration: none;
     color: white;
+    padding: 10px 10px 10px 10px
 }
 
-.container {
-    margin: 20px;
+.users-nav{
+    float: right;
+    display: inline-block;
+    margin: 3px;
+    padding: 0;
 }
+
+.users-nav a {
+    text-decoration: none;
+    color: white;
+    padding: 10px 10px 10px 10px
+}
+
+.active{
+    border-bottom: 5px solid #fff;
+}
+
+
 
 .alert {
     padding: 10px;
@@ -67,23 +91,28 @@ body {
 }
 
 .container {
-    margin: 20px;
+    margin: 20px 0px 20px 0px;
 }
 
 .form-container {
     max-width: 400px;
     margin: auto;
-    background-color: #fff;
+    background-color: #00383B;
     padding: 100px;
     border-radius: 5px;
     box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    color: #fff;
+}
+
+.form-container a {
+    color: #fff;
 }
 
 /* Container styles */
 .task-container {
     max-width: 100%;
     margin: 20px auto;
-    padding: 20px;
+    padding: 20px 10px 20px 10px;
     background-color: #fff;
     border-radius: 5px;
     box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
@@ -93,6 +122,7 @@ body {
 .auth-form,
 .task-form {
     margin-top: 20px;
+    width: 100%;
 }
 
 .form-group {
@@ -110,7 +140,7 @@ body {
 .btn-primary {
     display: block;
     padding: 10px;
-    background-color: #007bff;
+    background-color: #00383B;
     color: #fff;
     border: none;
     border-radius: 5px;
@@ -120,10 +150,13 @@ body {
     margin: 10px 0;
     text-align: center;
     text-decoration: none;
+    border: 2px #00383B solid;
 }
 
 .btn-primary:hover {
-    background-color: #0056b3;
+    background-color: #fff;
+    color: #00383B;
+    border: 2px #00383B solid;
 }
 
 .btn-danger {
@@ -150,8 +183,6 @@ body {
 
 .table th, .table td {
     padding: 10px;
-    border-bottom: 1;
-    text-align
 }
 
 td a {
@@ -163,17 +194,17 @@ td a {
 }
 
 .high-priority {
-    background-color: #e74c3c;
+    background-color: #9b1c31;
     color: #FFFFFF;
 }
 
 .medium-priority {
-    background-color: #f1c40f;
+    background-color: #fada50;
     color: #FFFFFF;
 }
 
 .low-priority {
-    background-color: #2ecc71;
+    background-color: #5DADE2;
     color: #FFFFFF;
 }
 
@@ -214,4 +245,9 @@ td a {
 .tooltip:hover .tooltiptext {
   visibility: visible;
   opacity: 1;
+}
+
+.sort-btn{
+    border: none;
+    background-color: #fff;
 }
