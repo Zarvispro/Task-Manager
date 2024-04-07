@@ -1,8 +1,8 @@
 from flask_wtf import FlaskForm
-from wtforms import PasswordField
+from wtforms import PasswordField, RadioField
 from wtforms.validators import Email, EqualTo
 from wtforms.validators import DataRequired, InputRequired
-from wtforms import StringField, TextAreaField, DateField, SelectField, SubmitField
+from wtforms import StringField, TextAreaField, DateField, SubmitField
 
 
 class RegistrationForm(FlaskForm):
@@ -23,7 +23,7 @@ class TaskForm(FlaskForm):
     title = StringField('Title', validators=[InputRequired()])
     description = TextAreaField('Description')
     due_date = DateField('Due Date')
-    priority = SelectField('Priority', choices=[('1', 'High'), ('2', 'Medium'), ('3', 'Low')])
+    priority = RadioField('Priority', choices=[('1', 'High'), ('2', 'Medium'), ('3', 'Low')])
 
 
 class ChangePasswordForm(FlaskForm):

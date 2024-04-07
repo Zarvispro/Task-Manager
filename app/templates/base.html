@@ -14,6 +14,25 @@
                 alert.remove();
             }
         }, 2000);
+
+        // Script to highlight active navigation link
+        document.addEventListener('DOMContentLoaded', function() {
+            var currentUrl = window.location.pathname;
+            var navLinks = document.querySelectorAll('.nav-links a');
+            var navUsers = document.querySelectorAll('.users-nav a');
+
+            navLinks.forEach(function(link) {
+                if (link.getAttribute('href') === currentUrl) {
+                    link.classList.add('active');
+                }
+            });
+
+            navUsers.forEach(function(link) {
+                if (link.getAttribute('href') === currentUrl) {
+                    link.classList.add('active');
+                }
+            });
+        });
     </script>
 </head>
 <body>
@@ -21,23 +40,25 @@
         <div class="header-container">
             <a href="{{ url_for('home') }}" class="logo">Task Manager</a>
             <nav>
-                <ul>
-                    {% if current_user.is_authenticated %}
-                        <li><a href="{{ url_for('dashboard') }}">Dashboard</a></li>
-                        <li><a href="{{ url_for('task_history') }}">History</a></li>
-                        <li><a href="{{ url_for('profile') }}">Profile</a></li>
-                        <li>
-                            <form action="{{ url_for('logout') }}" method="post">
-                                <button type="submit" class="nav-link btn btn-link" style="background-color: #333;border: none;">
-                                    <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#007bff" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M10 3H6a2 2 0 0 0-2 2v14c0 1.1.9 2 2 2h4M16 17l5-5-5-5M19.8 12H9"/></svg>
-                                </button>
-                            </form>
-                        </li>
-                    {% else %}
-                        <li><a href="{{ url_for('login') }}">Login</a></li>
-                        <li><a href="{{ url_for('register') }}">Register</a></li>
-                    {% endif %}
-                </ul>
+                {% if current_user.is_authenticated %}
+                    <div class="nav-links">
+                        <a href="{{ url_for('dashboard') }}">Dashboard</a>
+                        <a href="{{ url_for('task_history') }}">History</a>
+                        <a href="{{ url_for('profile') }}">Profile</a>
+                    </div>
+                    <div style="float: right">
+                        <form action="{{ url_for('logout') }}" method="post">
+                            <button type="submit" class="nav-link btn btn-link" style="background-color: #00383B; border: none;">
+                                <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M10 3H6a2 2 0 0 0-2 2v14c0 1.1.9 2 2 2h4M16 17l5-5-5-5M19.8 12H9"/></svg>
+                            </button>
+                        </form>
+                    </div>
+                {% else %}
+                    <div class="users-nav">
+                        <a href="{{ url_for('login') }}">Login</a>
+                        <a href="{{ url_for('register') }}">Register</a>
+                    </div>
+                {% endif %}
             </nav>
         </div>
     </header>
