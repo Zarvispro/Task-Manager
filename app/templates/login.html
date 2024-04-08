@@ -11,6 +11,10 @@
             <div class="form-group">
                 {{ form.password(class="form-control", placeholder="Password") }}
             </div>
+            <div class="form-group form-check">
+                {{ form.remember_me(class="form-check-input") }}
+                <label class="form-check-label" for="remember_me">Remember Me</label>
+            </div>
             <button type="submit" class="btn btn-primary">Login</button>
         </form>
         <p class="auth-message">Don't have an account? <a href="{{ url_for('register') }}">Register</a></p>
