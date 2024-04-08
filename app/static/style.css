@@ -25,6 +25,10 @@
     .table th, .table td {
     text-align: center;
     }
+     .table th,
+    .table td {
+        font-size: 10px;
+    }
 }
 
 .nav-links{
@@ -88,6 +92,7 @@ body {
     background-color: #f8f9fa;
     color: #212529;
     margin: 0px;
+    overflow-x: hidden;
 }
 
 .container {
@@ -142,7 +147,6 @@ body {
     padding: 10px;
     background-color: #00383B;
     color: #fff;
-    border: none;
     border-radius: 5px;
     font-size: 16px;
     cursor: pointer;
@@ -150,7 +154,7 @@ body {
     margin: 10px 0;
     text-align: center;
     text-decoration: none;
-    border: 2px #00383B solid;
+    border: 2px #fff solid;
 }
 
 .btn-primary:hover {
